@@ -13,17 +13,43 @@
 import wepy from 'wepy'
 import 'wepy-async-function'
 
-
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/index'
+      'pages/index',
+      'pages/newPost',
+      'pages/major'
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      color: '#626567',
+      selectedColor: '#2A8CE5',
+      backgroundColor: '#FBFBFB',
+      borderStyle: 'black',
+      list: [
+        {
+          pagePath: 'pages/index',
+          text: '热门',
+          iconPath: 'images/hot.png',
+          selectedIconPath: 'images/hot_selected.png'
+        },
+        {
+          pagePath: 'pages/newPost',
+          text: '发帖',
+          iconPath: 'images/newPost.png',
+          selectedIconPath: 'images/newPost_selected.png'
+        },
+        {
+          pagePath: 'pages/major',
+          text: '专业圈',
+          iconPath: 'images/majorMoment.png',
+          selectedIconPath: 'images/majorMoment_selected.png'
+        }]
     }
   }
 
