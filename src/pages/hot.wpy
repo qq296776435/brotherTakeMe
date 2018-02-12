@@ -1,0 +1,156 @@
+<style>
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 30rpx 0 30rpx 40rpx;
+  }
+  .userinfo-avatar {
+    width: 128rpx;
+    height: 128rpx;
+    margin: 20rpx;
+    border-radius: 50%;
+  }
+
+  .userinfo-nickname {
+    color: #aaa;
+  }
+  .sideslip{
+    height: 100%;
+    width: 750rpx;
+    position: fixed;
+    background-color: rgb(0, 68, 97);
+    z-index: 0;
+  }
+  .wc{
+    color: white;
+    padding: 30rpx 0 30rpx 40rpx;
+  }
+  .page-content{
+    padding-top: 10%;
+  }
+  .page-top{
+    height: 100%;
+    position: fixed;
+    width: 750rpx;
+    background-color: rgb(57, 125, 230);
+    z-index: 0;
+    transition: All 0.4s ease;
+    -webkit-transition: All 0.4s ease;
+  }
+  .page-top image{
+    position: absolute;
+    width: 68rpx;
+    height: 48rpx;
+    left: 20rpx;
+    top: 20rpx;
+  }
+  .page-main{
+    height: 95%;
+    top: 10%;
+    position: fixed;
+    width: 750rpx;
+    background-color: rgb(57, 125, 230);
+    z-index: 1;
+    transition: All 0.4s ease;
+    -webkit-transition: All 0.4s ease;
+    border-style: solid;
+    border-width: 5rpx 0 0 0;
+    border-color: #FFFFFF;
+  }
+</style>
+<template>
+  <view class="page">
+    <view class="sideslip">
+      <view class="userinfo" @tap="handleViewTap">
+        <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+        <view class="userinfo-nickname">{{ userInfo.nickName }}</view>
+      </view>
+      <view class="page-content">
+        <view class="wc">
+          <navigator url='indexTest' open-type="navigate">最近</navigator>
+        </view>
+        <view class="wc">
+          <text>帖子</text>
+        </view>
+        <view class="wc">
+          <text>收藏</text>
+        </view>
+        <view class="wc">
+          <text>关注</text>
+        </view>
+        <view class="wc">
+          <text>资源</text>
+        </view>
+        <view class="wc">
+          <text>设置</text>
+        </view>
+      </view>
+    </view>
+    <view class="page-top" style="{{ translate }}">
+      <view>
+        <image src="../../images/btn.png" @tap="sidebarCtrl"></image>
+      </view>
+      <view class='page-main'>
+        //帖子
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  export default class MyPage extends wepy.page {
+//  export default class MyComponent extends wepy.component {
+    customData = {}  // 自定义数据
+
+    customFunction () {} // 自定义方法
+
+    onLoad() {
+      let self = this
+      this.$parent.getUserInfo(function (userInfo) {
+        if (userInfo) {
+          self.userInfo = userInfo
+        }
+      })
+    }
+
+    onShow () {
+      console.log('hot onShow')
+    }  // 只在Page中存在的页面生命周期函数
+
+    config = {};  // 只在Page实例中存在的配置数据，对应于原生的page.json文件
+
+    data = {
+      userInfo: {
+        nickName: '加载中...'
+      },
+      open: false,
+      translate: '',
+      windowWidth: wx.getSystemInfoSync().windowWidth
+    };  // 页面所需数据均需在这里声明，可用于模板数据绑定
+
+    components = {};  // 声明页面中所引用的组件，或声明组件中所引用的子组件
+
+    mixins = [];  // 声明页面所引用的Mixin实例
+
+    computed = {};  // 声明计算属性（详见后文介绍）
+
+    watch = {};  // 声明数据watcher（详见后文介绍）
+
+    methods = {
+      handleViewTap() {
+      },
+      sidebarCtrl() {
+        if (this.open) {
+          this.translate = 'transform: translateX(0px)'
+          this.open = false
+        }else {
+          this.translate = 'transform: translateX(' + this.data.windowWidth * 0.4 + 'px)'
+          this.open = true
+        }
+      }
+    };  // 声明页面wxml中标签的事件处理函数。注意，此处只用于声明页面wxml中标签的bind、catch事件，自定义方法需以自定义方法的方式声明
+
+    events = {};  // 声明组件之间的事件处理函数
+  }
+</script>

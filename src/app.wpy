@@ -16,7 +16,8 @@ import 'wepy-async-function'
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/index',
+//      'pages/index',
+      'pages/hot',
       'pages/newPost',
       'pages/major'
     ],
@@ -33,7 +34,7 @@ export default class extends wepy.app {
       borderStyle: 'black',
       list: [
         {
-          pagePath: 'pages/index',
+          pagePath: 'pages/hot',
           text: '热门',
           iconPath: 'images/hot.png',
           selectedIconPath: 'images/hot_selected.png'
